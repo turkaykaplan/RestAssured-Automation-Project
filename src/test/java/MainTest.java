@@ -22,13 +22,11 @@ public class MainTest {
     @Test
     void runScenario() {
 
-        // 1) Board oluştur
         String boardId = boardApi.createBoard("Mini‑Board");
         assertNotNull(boardId, "Board ID null geldi!");
         System.out.println("Board oluşturuldu → ID = " + boardId);
 
 
-        // 2) Board’daki ilk listenin ID’sini al
         String listId = given(boardApi.spec)
                 .get("/boards/{id}/lists", boardId)
                 .then().statusCode(200)
@@ -36,7 +34,6 @@ public class MainTest {
 
         System.out.println("İlk liste ID = " + listId);
 
-        // 3) İki kart oluştur
         String cardA = cardApi.createCard(listId, "Kart A");
         String cardB = cardApi.createCard(listId, "Kart B");
         List<String> cards = List.of(cardA, cardB);
@@ -46,19 +43,14 @@ public class MainTest {
         System.out.println("Kart B oluşturuldu → ID = " + cardB);
 
 
-        // 4) Rastgele birini güncelle
         String toUpdate = cards.get(rnd.nextInt(cards.size()));
         cardApi.updateCard(toUpdate, "Güncellendi!");
         System.out.println("Güncellenen kart ID = " + toUpdate);
 
-        // 5) Kartları sil
-        cardApi.deleteCard(cardA);   // Kart A silindi
-        cardApi.deleteCard(cardB);   // Kart B silindi
+        cardApi.deleteCard(cardA);   
+        cardApi.deleteCard(cardB);   
         System.out.println("Kartlar silindi.");
 
-
-
-        // 6) Board’u sil
         boardApi.deleteBoard(boardId);
         System.out.println("Board silindi.");
 
