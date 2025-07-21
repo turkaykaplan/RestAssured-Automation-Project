@@ -1,0 +1,1 @@
+In the tests performed in the local environment, the web service automation project was run successfully using KEY and TOKEN, but in the GitHub environment, representative values were added instead of these values.
